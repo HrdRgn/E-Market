@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "Boilerplate SkillCrucial",
   "main": "index.js",
-"scripts": {
+  "scripts": {
     "docker-start-dev": "docker-compose -f \"docker\\DEV.docker-compose.yml\" up",
     "docker-stop-dev": "docker-compose -f \"docker\\DEV.docker-compose.yml\" down",
     "dev": "yarn run watch:server & yarn run watch:client ",
@@ -24,12 +24,11 @@
     "watch:server": "nodemon --legacy-watch start.js --watch server --watch client --exec \"npm run lint:server  --scripts-prepend-node-path && node\"",
     "build:prod": "cross-env NODE_ENV=production webpack --config webpack.production.config.js --progress --profile --colors",
     "build:ssr": "cross-env NODE_ENV=production webpack --config webpack.ssr.config.js --progress --profile --colors",
-
     "heroku-postbuild": "yarn run build:prod",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
-  "author": "",
+  "author": "HrdRgn <bobkovandv@gmail.com>",
   "license": "MIT",
   "jest": {
     "setupFiles": [
@@ -178,5 +177,6 @@
       "pre-commit": "cross-env npm run lint && npm test",
       "pre-push": "cross-env npm run lint && npm test"
     }
-  }
+  },
+  "repository": "git@github.com:HrdRgn/E-Market.git"
 }

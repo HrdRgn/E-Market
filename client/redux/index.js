@@ -16,7 +16,7 @@ const isBrowser = typeof window !== 'undefined'
 
 const persistedState = loadState()
 const persistedState1 = loadState1()
-const initialState = {basket: persistedState, currency: persistedState1}
+const initialState = { basket: persistedState, currency: persistedState1 }
 const enhancers = []
 const middleware = [thunk, routerMiddleware(history)]
 
@@ -27,7 +27,9 @@ const composedEnhancers = composeFunc(applyMiddleware(...middleware), ...enhance
 const store = createStore(rootReducer(history), initialState, composedEnhancers)
 let socket
 
-store.subscribe(() => { saveState(store.getState())})
+store.subscribe(() => {
+  saveState(store.getState())
+})
 store.subscribe(() => {
   saveState1(store.getState())
 })

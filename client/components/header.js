@@ -4,10 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { changeCurrency } from '../redux/reducers/currency'
 
-
-
 const Header = () => {
-
   const [exchangeRate, setExchangeRate] = useState({})
   const info = useSelector((s) => s.basket)
   const total = info.reduce((acc, rec) => acc + rec.amount, 0)
@@ -19,7 +16,6 @@ const Header = () => {
       setExchangeRate(it.data.rates)
     })
   }, [])
-
 
   return (
     <nav className="fixed z-10 h-36 w-full shadow flex items-center justify-around bg-black p-4 px-12">
@@ -77,7 +73,5 @@ const Header = () => {
     </nav>
   )
 }
-
-
 
 export default Header

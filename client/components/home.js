@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addPosition } from '../redux/reducers/basket'
 
@@ -12,7 +12,9 @@ const Home = () => {
   const idBase = useSelector((s) => s.base)
   const dispatch = useDispatch()
   const actualCurrency = useSelector((s) => s.currency)
-  useEffect(() => {setPageNumber(0)},[showOnPage])
+  useEffect(() => {
+    setPageNumber(0)
+  }, [showOnPage])
   switch (actualCurrency.sortType) {
     case '$ - $$$': {
       idBase.sort((a, b) => a.price - b.price)
@@ -34,8 +36,7 @@ const Home = () => {
       break
     }
   }
-  const Base = idBase.slice(showOnPage*pageNumber, (pageNumber+1)*showOnPage)
-  console.log(showOnPage)
+  const Base = idBase.slice(showOnPage * pageNumber, (pageNumber + 1) * showOnPage)
   return (
     <div>
       <Header> </Header>

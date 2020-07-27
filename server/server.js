@@ -41,6 +41,12 @@ const middleware = [
 
 middleware.forEach((it) => server.use(it))
 
+server.get('/api/v1/test/cookies', (req, res) => {
+  console.log(req.cookies)
+  res.cookie('serverCookie', 'test', { maxAge: 90000, httpOnly: true })
+  res.json({ status: req.cookies })
+})
+
 server.use('/api/', (req, res) => {
   res.status(404)
   res.end()

@@ -1,12 +1,14 @@
 import { combineReducers } from 'redux'
 import { connectRouter } from 'connected-react-router'
-import users from './users'
-
+import basket from './basket'
+import base from './base'
+import currency from './currency'
 
 const createRootReducer = (history) =>
   combineReducers({
     router: connectRouter(history),
-    users
+    basket,
+    base,
+    currency
   })
-
 export default createRootReducer

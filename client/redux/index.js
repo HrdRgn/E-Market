@@ -1,9 +1,11 @@
 import { createStore, applyMiddleware, compose } from 'redux'
 import { routerMiddleware } from 'connected-react-router'
 import thunk from 'redux-thunk'
+
 import { composeWithDevTools } from 'redux-devtools-extension'
 import SockJS from 'sockjs-client'
 
+import { loadState, loadState1, saveState, saveState1 } from '../localstorage/localStorage'
 import rootReducer from './reducers'
 import createHistory from './history'
 import socketActions from './sockets'
@@ -12,7 +14,9 @@ export const history = createHistory()
 
 const isBrowser = typeof window !== 'undefined'
 
-const initialState = {}
+const persistedState = loadState()
+const persistedState1 = loadState1()
+const initialState = {basket: persistedState, currency: persistedState1}
 const enhancers = []
 const middleware = [thunk, routerMiddleware(history)]
 
@@ -22,6 +26,11 @@ const composedEnhancers = composeFunc(applyMiddleware(...middleware), ...enhance
 
 const store = createStore(rootReducer(history), initialState, composedEnhancers)
 let socket
+
+store.subscribe(() => { saveState(store.getState())})
+store.subscribe(() => {
+  saveState1(store.getState())
+})
 
 if (typeof ENABLE_SOCKETS !== 'undefined' && ENABLE_SOCKETS) {
   const initSocket = () => {
@@ -51,4 +60,5 @@ if (typeof ENABLE_SOCKETS !== 'undefined' && ENABLE_SOCKETS) {
 export function getSocket() {
   return socket
 }
+
 export default store

@@ -35,6 +35,10 @@ const Header = () => {
             type="button"
             className="font-semibold m-1 px-4 py-2 border rounded text-white border-white"
             onClick={() => {
+              localStorage.setItem(
+                'log',
+                JSON.stringify(`Change Currency from ${actualCurrency.name} to USD`)
+              )
               dispatch(changeCurrency('USD', exchangeRate.USD))
             }}
           >
@@ -44,6 +48,15 @@ const Header = () => {
             type="button"
             className="font-semibold m-1 px-4 py-2 border rounded text-white border-white"
             onClick={() => {
+              const stored = JSON.parse(localStorage.getItem('log'))
+              const plus = []
+              if (stored !== null) {plus.push(stored)}
+              const currObj = { [new Date()]: `Change Currency from ${actualCurrency.name} to EUR` }
+              plus.push(currObj)
+              localStorage.setItem(
+                'log',
+                JSON.stringify(plus)
+              )
               dispatch(changeCurrency('EUR', 1))
             }}
           >

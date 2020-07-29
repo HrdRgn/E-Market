@@ -5,10 +5,13 @@ import bodyParser from 'body-parser'
 import sockjs from 'sockjs'
 import { renderToStaticNodeStream } from 'react-dom/server'
 import React from 'react'
+import axios from 'axios'
 
 import cookieParser from 'cookie-parser'
 import config from './config'
 import Html from '../client/html'
+
+const data = require('./database')
 
 const Root = () => ''
 
@@ -45,6 +48,23 @@ server.get('/api/v1/test/cookies', (req, res) => {
   console.log(req.cookies)
   res.cookie('serverCookie', 'test', { maxAge: 90000, httpOnly: true })
   res.json({ status: req.cookies })
+})
+
+server.get('/api/v1/products', (req, res) => {
+  res.json(data.slice(0, 10))
+  res.end()
+})
+
+server.post('/api/v1/logs', (req, res) => {
+  console.log(req.body)
+  res.json(req.body)
+  res.end()
+})
+
+server.get('/api/v1/rates', async (req, res) => {
+  const { data: rates } = await axios('https://api.exchangeratesapi.io/latest?symbols=USD,CAD')
+  res.json(rates)
+  res.end()
 })
 
 server.use('/api/', (req, res) => {
